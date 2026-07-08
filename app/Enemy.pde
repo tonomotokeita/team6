@@ -1,28 +1,33 @@
 class Enemy {
 
+  PImage img;
   float x, y;
+  float dx, dy;
+  int w, h;
   int hp;
-  float speed;
-  int point;
-  int attack;
 
-  Enemy(float x, float y) {
+  Enemy(String filename, float x, float y) {
+    img = loadImage(filename);
+
     this.x = x;
     this.y = y;
 
+    w = 60;
+    h = 60;
+
+    dx = 0;
+    dy = 3;
+
     hp = 30;
-    speed = 3;
-    point = 100;
-    attack = 10;
   }
 
   void move() {
-    y += speed;
+    x += dx;
+    y += dy;
   }
 
   void display() {
-    fill(255, 0, 0);
-    ellipse(x, y, 40, 40);
+    image(img, x, y, w, h);
   }
 
   void damage(int d) {
@@ -31,9 +36,5 @@ class Enemy {
 
   boolean isDead() {
     return hp <= 0;
-  }
-
-  void attack() {
-    // 敵弾を追加する予定
   }
 }
