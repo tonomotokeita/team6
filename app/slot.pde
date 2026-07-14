@@ -1,22 +1,39 @@
 class Slot {
 
-  String[] symbols = {"7", "★", "🍒"};
-  String[] result = new String[3];
+  PImage[] symbols = new PImage[4];
+  int[] result = new int[3];
 
   boolean isSpinning = false;
 
   Slot() {
+    symbols[0] = loadImage("slot1.png");
+    symbols[1] = loadImage("slot2.png");
+    symbols[2] = loadImage("slot3.png");
+    symbols[3] = loadImage("slot4.png");
+  
+    for (int i = 0; i < 3; i++) {
+      result[i] = int(random(symbols.length));
+    }
   }
 
+  
   void start() {
     isSpinning = true;
   }
 
+  void update(){
+    if (isSpinning && frameCount % 3 == 0){
+      for (int i = 0; i < 3; i++){
+        result[i] = int(random(symbols.length));
+      }
+    }
+  }
+  
   void stop(Player player) {
     isSpinning = false;
 
     for (int i = 0; i < 3; i++) {
-      result[i] = symbols[int(random(symbols.length))];
+      result[i] = int(random(symbols.length));
     }
 
     judge(player);
@@ -25,10 +42,35 @@ class Slot {
   void display() {
 
     fill(255);
-    textSize(40);
+    textAlign(CENTER);
+    textSize(28);
+    text("SLOT",width / 2,100);
+    textAlign(LEFT);
 
+    int slotSize = 100;
+    int gap = 30;
+    int totalWidth = slotSize * 3 + gap * 2;
+    int startX = (width - totalWidth) / 2;
+    int y = 180;
+    
     for (int i = 0; i < 3; i++) {
-      text(result[i], 200 + i * 80, 200);
+      int x = startX + i * (slotSize + gap);
+
+      noFill();
+      stroke(255);
+      rect(x, y, slotSize, slotSize);
+      noStroke();
+
+      PImage img = symbols[result[i]];
+      if (img != null) {
+        image(img, x, y, slotSize, slotSize);
+      } else {
+        fill(255);
+        textAlign(CENTER);
+        textSize(20);
+        text("slot" + (result[i] + 1), x + slotSize / 2, y + slotSize / 2);
+        textAlign(LEFT);
+      }
     }
   }
 
