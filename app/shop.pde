@@ -4,7 +4,7 @@ class Shop {
 
   boolean hpBought = false;
   boolean speedBought = false;
-  boolean powerBought = false;
+  boolean atkBought = false;
 
   Shop(int coin) {
     this.coin = coin;
@@ -24,7 +24,7 @@ class Shop {
 
     text("1 : HP +20 (10 Coin)", 50, 180);
     text("2 : Speed +1 (10 Coin)", 50, 230);
-    text("3 : Power +5 (10 Coin)", 50, 280);
+    text("3 : Atk +5(10 Coin)", 50, 280);
   }
 
   void buy(Player player, int item) {
@@ -45,11 +45,11 @@ class Shop {
       speedBought = true;
     }
 
-    if (item == 3 && !powerBought) {
+    if (item == 3 && !atkBought) {
 
-      player.power += 5;
+      player.atk += 5;
       coin -= 10;
-      powerBought = true;
+      atkBought = true;
     }
   }
 }

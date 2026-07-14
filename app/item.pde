@@ -33,7 +33,7 @@ class Item {
     }
 
     if (type.equals("Power")) {
-      player.power += 5;
+      player.atk += 5;
     }
 
     active = false;
