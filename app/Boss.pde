@@ -1,10 +1,11 @@
 class Boss extends Enemy {
 
-  Boss(String filename, float x, float y) {
-    super(filename, x, y);
+  Boss(int stage, float x, float y) {
+    super(stage, x, y);
 
-    w = 150;
-    h = 150;
+    int bossNo = ((stage - 1) % 4) + 1;
+    img = loadImage("boss" + bossNo + ".png");
+
     hp = 300;
     dy = 1;
   }

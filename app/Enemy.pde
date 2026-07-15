@@ -3,17 +3,16 @@ class Enemy {
   PImage img;
   float x, y;
   float dx, dy;
-  int w, h;
+  float size;
   int hp;
 
-  Enemy(String filename, float x, float y) {
-    img = loadImage(filename);
+  Enemy(int stage, float x, float y) {
 
+    img = loadImage("enemy" + stage + ".png");
+    
     this.x = x;
     this.y = y;
-
-    w = 60;
-    h = 60;
+    size = 60;
 
     dx = 0;
     dy = 3;
@@ -27,7 +26,15 @@ class Enemy {
   }
 
   void display() {
-    image(img, x, y, w, h);
+
+    imageMode(CENTER);
+
+    if (img != null) {
+      image(img, x, y, size, size);
+    } else {
+      fill(255, 0, 0);
+      ellipse(x, y, size, size);
+    }
   }
 
   void damage(int d) {
