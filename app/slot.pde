@@ -90,7 +90,7 @@ class Slot {
     } else if (type == 1) {
       player.speed += 1;
     } else {
-      player.atk += 5;
+      player.power += 5;
     }
   }
 }
