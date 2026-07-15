@@ -36,7 +36,9 @@ class GameManager {
   void update() {
     if (scene.equals("TITLE")) {
       handleTitleScene();
-    } 
+    } else if(scene.equals("SELECT")){
+      handleSelectScene();
+    }
     else if (scene.equals("PLAY")) {
       handlePlayScene();
     } 
@@ -54,20 +56,41 @@ class GameManager {
   void handleTitleScene() {
     ui.displayTitle();
     if (mousePressed && ui.isMouseOverButton()) {
-      scene = "PLAY";
-      score = 0;
-      stage.setStage(1);
-      player = new Player("player.png");
-      shop = new Shop(20); 
-      enemies.clear(); 
-      items.clear(); // アイテムリストもクリア
-      boss = null;
-      isBossBattle = false;
+      scene = "SELECT";
+      
+      delay(200);
     }
   }
   
+  void handleSelectScene(){
+    ui.displaySelect();
+    
+    if(mousePressed){
+      int selectedStage = ui.getSelectedStageByMouse();
+      
+      if(selectedStage > 0){
+        scene = "PLAY";
+        score = 0;
+        stage.setStage(selectedStage); // クリックしたステージ番号を反映
+        player = new Player("player.png");
+        shop = new Shop(20); 
+        enemies.clear(); 
+        items.clear();
+        boss = null;
+        isBossBattle = false;
+        
+        delay(200);
+      }
+    }
+  }
+    
+  
   void handlePlayScene() {
-    stage.display(); 
+    if(stage.bgImage != null){
+      image(stage.bgImage, 0, 0, width, height);
+    }else{
+      background(0);
+    }
     player.update(); 
     if (keyPressed && key == ' ') {
       player.shoot();
@@ -77,12 +100,12 @@ class GameManager {
     // --- 敵の出現・更新ロジック ---
     if (!isBossBattle) {
       if (frameCount % stage.enemySpawnInterval == 0) {
-        enemies.add(new Enemy("enemy1.png", random(50, width - 50), -50));
+        enemies.add(new Enemy(stage.stageNumber, random(50, width - 50), -50));
       }
       
       if (score >= 100) {
         isBossBattle = true;
-        boss = new Boss("boss.png", width / 2 - 75, -150); 
+        boss = new Boss(stage.stageNumber, width / 2 - 75, -150); 
       }
     } else {
       if (boss != null) {
@@ -91,7 +114,8 @@ class GameManager {
         
         for (int j = player.bullets.size() - 1; j >= 0; j--) {
           Bullet b = player.bullets.get(j);
-          if (b.x >= boss.x && b.x <= boss.x + boss.w && b.y >= boss.y && b.y <= boss.y + boss.h) {
+          if (b.x >= boss.x - boss.size/2 && b.x <= boss.x + boss.size/2 &&
+          b.y >= boss.y && b.y <= boss.y + boss.size/2) {
             boss.damage(b.atk);
             player.bullets.remove(j);
           }
@@ -100,14 +124,13 @@ class GameManager {
         // ボス撃破時の処理
         if (boss.isDead()) {
           // ➔ ボスが死んだら確定で強力な「Power（攻撃力UP）」アイテムを落とす
-          items.add(new Item(boss.x + boss.w/2, boss.y + boss.h/2, "Power"));
+          items.add(new Item(boss.x, boss.y, "Power"));
           
           boss = null;
           isBossBattle = false;
-          score += 100; 
+          score = 0; 
           
           scene = "SLOT";
-          stage.setStage(stage.stageNumber + 1);
           enemies.clear(); 
         }
       }
@@ -121,7 +144,8 @@ class GameManager {
       
       for (int j = player.bullets.size() - 1; j >= 0; j--) {
         Bullet b = player.bullets.get(j);
-        if (b.x >= e.x && b.x <= e.x + e.w && b.y >= e.y && b.y <= e.y + e.h) {
+        if (b.x >= e.x - e.size/2 && b.x <= e.x + e.size/2 &&
+        b.y >= e.y - e.size/2 && b.y <= e.y + e.size/2) {
           e.damage(b.atk);
           player.bullets.remove(j);
         }
@@ -132,7 +156,7 @@ class GameManager {
         if (random(1) < 0.3) {
           String[] types = {"HP", "Speed", "Power"};
           String randomType = types[int(random(types.length))]; // ランダムで効果を選択
-          items.add(new Item(e.x + e.w/2, e.y + e.h/2, randomType));
+          items.add(new Item(e.x, e.y, randomType));
         }
         
         enemies.remove(i);
@@ -201,7 +225,7 @@ class GameManager {
     fill(255, 255, 100);
     textSize(18);
     textAlign(CENTER);
-    text("Press 'SPACE' to Start Stage " + stage.stageNumber, width / 2, height - 50);
+    text("Press 'SPACE' to Return to Stage Select " + stage.stageNumber, width / 2, height - 50);
     
     if (keyPressed) {
       if (key == '1') shop.buy(player, 1);
@@ -212,7 +236,7 @@ class GameManager {
         shop.hpBought = false;
         shop.speedBought = false;
         shop.atkBought = false;
-        scene = "PLAY";
+        scene = "SELECT";
       }
     }
   }
