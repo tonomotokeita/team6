@@ -76,7 +76,7 @@ class Slot {
 
   void judge(Player player) {
 
-    if (result[0].equals(result[1]) && result[1].equals(result[2])) {
+    if (result[0] == result[1] && result[1] == result[2]) {
       applyBonus(player);
     }
   }
@@ -90,7 +90,7 @@ class Slot {
     } else if (type == 1) {
       player.speed += 1;
     } else {
-      player.power += 5;
+      player.atk += 5;
     }
   }
 }
