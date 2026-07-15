@@ -6,7 +6,7 @@ class Player {
   float size;
 
   int hp;
-  int atk;
+  int power;
   int level;
   int exp;
 
@@ -22,7 +22,7 @@ class Player {
     size = 60;
 
     hp = 100;
-    atk = 10;
+    power = 10;
     level = 1;
     exp = 0;
 
@@ -76,7 +76,7 @@ class Player {
   }
 
   void shoot() {
-    bullets.add(new Bullet(x, y - size / 2, atk));
+    bullets.add(new Bullet(x, y - size / 2, power));
   }
 
   void damage(int damageValue) {

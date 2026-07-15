@@ -32,8 +32,8 @@ class Item {
       player.speed += 1;
     }
 
-    if (type.equals("Atk")) {
-      player.atk += 5;
+     if (type.equals("Power")) {
+      player.power += 5;
     }
 
     active = false;
