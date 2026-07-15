@@ -77,7 +77,7 @@ class GameManager {
     // --- 敵の出現・更新ロジック ---
     if (!isBossBattle) {
       if (frameCount % stage.enemySpawnInterval == 0) {
-        enemies.add(new Enemy("enemy.png", random(50, width - 50), -50));
+        enemies.add(new Enemy("enemy1.png", random(50, width - 50), -50));
       }
       
       if (score >= 100) {
