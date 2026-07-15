@@ -24,7 +24,7 @@ class Shop {
 
     text("1 : HP +20 (10 Coin)", 50, 180);
     text("2 : Speed +1 (10 Coin)", 50, 230);
-    text("3 : Atk +5(10 Coin)", 50, 280);
+    text("3 : Power +5(10 Coin)", 50, 280);
   }
 
   void buy(Player player, int item) {
