@@ -32,7 +32,7 @@ class Item {
       player.speed += 1;
     }
 
-    if (type.equals("Power")) {
+    if (type.equals("Atk")) {
       player.atk += 5;
     }
 
