@@ -76,7 +76,7 @@ class Slot {
 
   void judge(Player player) {
 
-    if (result[0].equals(result[1]) && result[1].equals(result[2])) {
+    if (result[0] == result[1] && result[1] == result[2]) {
       applyBonus(player);
     }
   }
