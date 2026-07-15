@@ -52,6 +52,93 @@ class UI {
     text("START GAME", startBtnX + startBtnW / 2, startBtnY + startBtnH / 2);
   }
   
+  // 🌟ステージ選択画面の描画（上段1〜4、下段5〜8のグリッド配置）
+  void displaySelect() {
+    background(20, 30, 45); // 選択画面用の背景色
+    
+    textAlign(CENTER, CENTER);
+    fill(255);
+    textSize(40);
+    text("SELECT STAGE", width / 2, 100);
+    
+    textSize(22);
+    fill(180, 200, 255);
+    text("- Click on a Stage to Play -", width / 2, 160);
+    
+    // ボタンのサイズと配置の計算
+    float btnW = 200; // 横並びにするため少しスリムに
+    float btnH = 90;  // 押しやすいように少し高さを出す
+    float gapX = 30;  // ボタン同士の横の隙間
+    
+    // 4つのボタンを並べた時の全体の横幅を計算
+    float totalW = (btnW * 4) + (gapX * 3); // 200*4 + 25*3 = 875px
+    float startX = (width - totalW) / 2;    // 画面中央に収めるための左端の開始位置
+    float startY = 320;                     // 1行目のY座標の開始位置
+    
+    for (int i = 1; i <= 4; i++) {
+      int col = (i - 1) ; // 左から何番目か（0、1、2、3）
+      
+      float x = startX + col * (btnW + gapX);
+      float y = startY;
+      
+      // マウスがこのボタンの上にあるかチェック
+      boolean isHover = (mouseX >= x && mouseX <= x + btnW && mouseY >= y && mouseY <= y + btnH);
+      
+      // ボタンの背景（ホバー時は明るく）
+      if (isHover) {
+        fill(100, 100, 230); // 明るい青
+      } else {
+        fill(50, 50, 130);   // 暗い青
+      }
+      stroke(255, 150);
+      strokeWeight(2);
+      rect(x, y, btnW, btnH, 10); // 角丸ボタン
+      noStroke();
+      
+      // ボタンの文字
+      fill(255);
+      textSize(18);
+      textAlign(CENTER, CENTER);
+      
+      // ステージ名（改行を入れて2行にすると綺麗に収まります）
+      String stageTitle = "STAGE " + i;
+      String stageSub = "";
+      switch(i) {
+        case 1: stageSub = "(草原)"; break;
+        case 2: stageSub = "(夕方)"; break;
+        case 3: stageSub = "(洞窟)"; break;
+        case 4: stageSub = "(空)"; break;
+      }
+      
+      // ボタンの中心に文字を描画
+      text(stageTitle + "\n" + stageSub, x + btnW / 2, y + btnH / 2);
+    }
+  }
+
+  // 🌟マウスクリック時の当たり判定（描画と同じ計算式を使用）
+  int getSelectedStageByMouse() {
+    float btnW = 200;
+    float btnH = 90;
+    float gapX = 30;
+
+    
+    float totalW = (btnW * 4) + (gapX * 3);
+    float startX = (width - totalW) / 2;
+    float startY = 320;
+    
+    for (int i = 1; i <= 4; i++) {
+      int col = (i - 1) % 4;
+      
+      float x = startX + col * (btnW + gapX);
+      float y = startY;
+      
+      if (mouseX >= x && mouseX <= x + btnW && mouseY >= y && mouseY <= y + btnH) {
+        return i; // クリックされたステージ（1〜8）を返す
+      }
+    }
+    return 0; // どこもクリックされていない
+  }
+  
   // 2. ゲームプレイ中の画面表示（HP、スコア、現在のステージ情報）
   void displayGame(int hp, int score, int stageNum) {
     textAlign(LEFT, TOP);
