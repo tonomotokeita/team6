@@ -47,7 +47,7 @@ class Shop {
 
     if (item == 3 && !atkBought) {
 
-      player.atk += 5;
+      player.power += 5;
       coin -= 10;
       atkBought = true;
     }
