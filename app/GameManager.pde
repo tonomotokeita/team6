@@ -86,11 +86,16 @@ class GameManager {
     
   
   void handlePlayScene() {
-    if(stage.bgImage != null){
-      image(stage.bgImage, 0, 0, width, height);
-    }else{
-      background(0);
-    }
+    stage.display();
+
+  player.update();
+
+  if (keyPressed && key == ' ') {
+    player.shoot();
+  }
+
+  player.display();
+   
     player.update(); 
     if (keyPressed && key == ' ') {
       player.shoot();
@@ -111,6 +116,8 @@ class GameManager {
       if (boss != null) {
         boss.move();
         boss.display();
+        boss.attack(player);
+        boss.updateBullets(player);
         
         for (int j = player.bullets.size() - 1; j >= 0; j--) {
           Bullet b = player.bullets.get(j);

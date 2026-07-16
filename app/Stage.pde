@@ -41,12 +41,11 @@ class Stage {
   
   // 背景を描画するメソッド
   void display() {
-    if (bgImage != null) {
-      // 画像が存在すれば、画面サイズ（width, height）に引き伸ばして描画
-      image(bgImage, 0, 0, width, height);
-    } else {
-      // 万が一画像が読み込めなかった時のための安全対策（真っ黒にする）
-      background(0);
-    }
+  if (bgImage != null) {
+    imageMode(CORNER);
+    image(bgImage, 0, 0, width, height);
+  } else {
+    background(0);
   }
+}
 }
