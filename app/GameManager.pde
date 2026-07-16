@@ -148,6 +148,16 @@ class GameManager {
       Enemy e = enemies.get(i);
       e.move();
       e.display();
+      e.attack();
+      e.updateBullets(player);
+      
+      if (dist(player.x, player.y, e.x, e.y)
+    < (player.size + e.size)/2) {
+
+  player.damage(20);
+
+  enemies.remove(i);
+  }
       
       for (int j = player.bullets.size() - 1; j >= 0; j--) {
         Bullet b = player.bullets.get(j);
