@@ -25,7 +25,7 @@ class Item {
   void applyEffect(Player player) {
 
     if (type.equals("HP")) {
-      player.hp += 20;
+      player.hp = min(player.maxHp, player.hp + 20);
     }
 
     if (type.equals("Speed")) {

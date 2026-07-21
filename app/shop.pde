@@ -18,13 +18,13 @@ class Shop {
 
     textSize(25);
 
-    text("SHOP", 300, 60);
+    text("ショップ", 300, 60);
 
-    text("Coin : " + coin, 50, 100);
+    text("コイン : " + coin, 50, 100);
 
-    text("1 : HP +20 (10 Coin)", 50, 180);
-    text("2 : Speed +1 (10 Coin)", 50, 230);
-    text("3 : Power +5(10 Coin)", 50, 280);
+    text("1 : 最大HP +20（10コイン）", 50, 180);
+    text("2 : 移動速度 +1（10コイン）", 50, 230);
+    text("3 : 攻撃力 +5（10コイン）", 50, 280);
   }
 
   void buy(Player player, int item) {
@@ -33,6 +33,7 @@ class Shop {
 
     if (item == 1 && !hpBought) {
 
+      player.maxHp += 20;
       player.hp += 20;
       coin -= 10;
       hpBought = true;
