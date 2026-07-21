@@ -18,7 +18,11 @@ class Shop {
 
     textSize(25);
 
-    text("ショップ", 300, 60);
+    // 前の画面の文字揃えを引き継がないよう、ここで明示する
+    textAlign(CENTER, TOP);
+    text("ショップ", width / 2, 50);
+
+    textAlign(LEFT, TOP);
 
     text("コイン : " + coin, 50, 100);
 
