@@ -2,22 +2,32 @@ class Bullet {
 
   float x;
   float y;
+  float dx;
+  float dy;
   float speed;
   float size;
 
   int atk;
 
   Bullet(float x, float y, int atk) {
+    this(x, y, atk, 10, -HALF_PI);
+  }
+
+  Bullet(float x, float y, int atk, float speed, float angle) {
     this.x = x;
     this.y = y;
     this.atk = atk;
 
-    speed = 10;
+    this.speed = speed;
     size = 12;
+
+    dx = cos(angle) * speed;
+    dy = sin(angle) * speed;
   }
 
   void update() {
-    y -= speed;
+    x += dx;
+    y += dy;
   }
 
   void display() {
@@ -29,6 +39,9 @@ class Bullet {
 
   // 画面外に出たか確認
   boolean isOut() {
-    return y < -size;
+    return x < -size ||
+           x > width + size ||
+           y < -size ||
+           y > height + size;
   }
 }
