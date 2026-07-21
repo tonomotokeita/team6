@@ -45,15 +45,15 @@ class Player {
 
   void update() {
 
-    if (keyPressed) {
-      if (keyCode == LEFT) {
-        x -= speed;
-      }
+    boolean moveLeft = keyPressed && keyCode == LEFT;
+    boolean moveRight = keyPressed && keyCode == RIGHT;
+    update(moveLeft, moveRight);
+  }
 
-      if (keyCode == RIGHT) {
-        x += speed;
-      }
-    }
+  void update(boolean moveLeft, boolean moveRight) {
+
+    if (moveLeft) x -= speed;
+    if (moveRight) x += speed;
 
     x = constrain(x, size / 2, width - size / 2);
 

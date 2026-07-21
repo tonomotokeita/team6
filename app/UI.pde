@@ -32,7 +32,7 @@ class UI {
     // サブタイトルや操作説明
     fill(180, 200, 255);
     textSize(18);
-    text("- Press START BUTTON to Play -", width / 2, height / 2 - 10);
+    text("スタートボタンを押してください", width / 2, height / 2 - 10);
     
     // スタートボタンの描画
     // マウスがボタンの上にある時は色を明るくする（ホバー効果）
@@ -49,7 +49,7 @@ class UI {
     // ボタンの文字
     fill(255);
     textSize(22);
-    text("START GAME", startBtnX + startBtnW / 2, startBtnY + startBtnH / 2);
+    text("ゲームスタート", startBtnX + startBtnW / 2, startBtnY + startBtnH / 2);
   }
   
   // 🌟ステージ選択画面の描画（上段1〜4、下段5〜8のグリッド配置）
@@ -59,11 +59,11 @@ class UI {
     textAlign(CENTER, CENTER);
     fill(255);
     textSize(40);
-    text("SELECT STAGE", width / 2, 100);
+    text("ステージ選択", width / 2, 100);
     
     textSize(22);
     fill(180, 200, 255);
-    text("- Click on a Stage to Play -", width / 2, 160);
+    text("プレイするステージを選んでください", width / 2, 160);
     
     // ボタンのサイズと配置の計算
     float btnW = 200; // 横並びにするため少しスリムに
@@ -101,13 +101,13 @@ class UI {
       textAlign(CENTER, CENTER);
       
       // ステージ名（改行を入れて2行にすると綺麗に収まります）
-      String stageTitle = "STAGE " + i;
+      String stageTitle = "ステージ " + i;
       String stageSub = "";
       switch(i) {
-        case 1: stageSub = "(草原)"; break;
-        case 2: stageSub = "(夕方)"; break;
-        case 3: stageSub = "(洞窟)"; break;
-        case 4: stageSub = "(空)"; break;
+        case 1: stageSub = "（草原）"; break;
+        case 2: stageSub = "（夕方）"; break;
+        case 3: stageSub = "（洞窟）"; break;
+        case 4: stageSub = "（空）"; break;
       }
       
       // ボタンの中心に文字を描画
@@ -146,17 +146,17 @@ class UI {
     
     // 黒い半透明の座布団（文字を見やすくするための背景）を上部に敷く
     fill(0, 0, 0, 100);
-    rect(0, 0, width, 50);
+    rect(0, 0, width, 75);
     
     // ステータス表示
     fill(255, 100, 100); // 赤っぽい色
     text("HP: " + hp, 30, 15);
     
     fill(255, 255, 100); // 黄色っぽい色
-    text("SCORE: " + score, 200, 15);
+    text("スコア: " + score, 200, 15);
     
     fill(100, 255, 255); // 水色っぽい色
-    text("STAGE: " + stageNum, width - 150, 15);
+    text("ステージ: " + stageNum, width - 170, 15);
   }
   
   // 3. ゲームオーバー画面の表示（必要に応じて使用）
@@ -170,8 +170,25 @@ class UI {
     
     fill(255);
     textSize(24);
-    text("FINAL SCORE: " + finalScore, width / 2, height / 2 + 30);
-    text("Press 'R' to Return to Title", width / 2, height / 2 + 80);
+    text("最終スコア: " + finalScore, width / 2, height / 2 + 30);
+    text("Rキーでタイトルへ戻る", width / 2, height / 2 + 80);
+  }
+
+  void displayClear(int finalScore) {
+    background(10, 30, 55);
+
+    fill(255, 220, 80);
+    textSize(60);
+    textAlign(CENTER, CENTER);
+    text("全ステージクリア！", width / 2, height / 2 - 70);
+
+    fill(255);
+    textSize(26);
+    text("最終スコア: " + finalScore, width / 2, height / 2 + 20);
+
+    fill(180, 220, 255);
+    textSize(20);
+    text("Rキーでタイトルへ戻る", width / 2, height / 2 + 90);
   }
   
   // 便利関数：マウスがスタートボタンの上にあるかどうかを判定する

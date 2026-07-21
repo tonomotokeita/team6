@@ -17,7 +17,7 @@ class Enemy {
     size = 60;
 
     dx = 0;
-    dy = 3;
+    dy = 2.0 + stage * 0.5;
 
     hp = 30;
     
