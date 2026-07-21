@@ -6,13 +6,19 @@ class Player {
   float size;
 
   int hp;
+  int maxHp;
   int power;
   int level;
   int exp;
 
+  int baseShotInterval;
+  int lastShotFrame;
+  float baseBulletSpeed;
+
   PImage image;
 
   ArrayList<Bullet> bullets;
+  StageWeaponBonus weaponBonus;
 
   Player(String filename) {
     x = width / 2;
@@ -21,14 +27,20 @@ class Player {
     speed = 6;
     size = 60;
 
-    hp = 100;
+    maxHp = 100;
+    hp = maxHp;
     power = 10;
     level = 1;
     exp = 0;
 
+    baseShotInterval = 12;
+    lastShotFrame = -1000;
+    baseBulletSpeed = 10;
+
     image = loadImage(filename);
 
     bullets = new ArrayList<Bullet>();
+    weaponBonus = new StageWeaponBonus();
   }
 
   void update() {
@@ -76,7 +88,70 @@ class Player {
   }
 
   void shoot() {
-    bullets.add(new Bullet(x, y - size / 2, power));
+    int shotInterval = max(
+      3,
+      baseShotInterval - weaponBonus.fireIntervalReduction
+    );
+
+    if (frameCount - lastShotFrame < shotInterval) {
+      return;
+    }
+
+    lastShotFrame = frameCount;
+
+    int shotCount =
+      getBaseShotCount() + weaponBonus.bulletCountBonus;
+
+    float bulletSpeed =
+      baseBulletSpeed + weaponBonus.bulletSpeedBonus;
+
+    int bulletPower =
+      power + weaponBonus.powerBonus;
+
+    float spread = radians(10);
+
+    for (int i = 0; i < shotCount; i++) {
+      float offset = i - (shotCount - 1) / 2.0;
+      float angle = -HALF_PI + offset * spread;
+
+      bullets.add(
+        new Bullet(
+          x,
+          y - size / 2,
+          bulletPower,
+          bulletSpeed,
+          angle
+        )
+      );
+    }
+  }
+
+  // レベルごとの基本弾数
+  int getBaseShotCount() {
+    if (level <= 1) return 1;
+    if (level == 2) return 2;
+    if (level == 3) return 3;
+    return 5;
+  }
+
+  // 敵を倒したときに経験値を加算する
+  void gainExp(int amount) {
+    if (level >= 4) return;
+
+    exp += amount;
+    int requiredExp = level * 50;
+
+    if (exp >= requiredExp) {
+      exp -= requiredExp;
+      level++;
+    }
+  }
+
+  // 次ステージ開始時に初期位置へ戻す
+  void resetPosition() {
+    x = width / 2;
+    y = height - 80;
+    bullets.clear();
   }
 
   void damage(int damageValue) {
