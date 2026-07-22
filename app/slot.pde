@@ -17,11 +17,9 @@ class Slot {
     symbols[3] = loadImage("slot4.png");
   
     for (int i = 0; i < 3; i++) {
-<<<<<<< HEAD
-      result[i] = (int)random(symbols.length);
-=======
+
       result[i] = (int) random(symbols.length);
->>>>>>> 8f00998c93b588acedb3ceb2994e7a4d25ba49ac
+
     }
   }
 
@@ -38,22 +36,18 @@ class Slot {
     bonusMessage = "";
 
     for (int i = 0; i < result.length; i++) {
-<<<<<<< HEAD
-      result[i] = (int)random(symbols.length);
-=======
+
       result[i] = (int) random(symbols.length);
->>>>>>> 8f00998c93b588acedb3ceb2994e7a4d25ba49ac
+
     }
   }
 
   void update(){
     if (isSpinning && frameCount % 3 == 0){
       for (int i = 0; i < 3; i++){
-<<<<<<< HEAD
-        result[i] = (int)random(symbols.length);
-=======
+
         result[i] = (int) random(symbols.length);
->>>>>>> 8f00998c93b588acedb3ceb2994e7a4d25ba49ac
+
       }
     }
   }
@@ -65,11 +59,9 @@ class Slot {
     hasStopped = true;
 
     for (int i = 0; i < 3; i++) {
-<<<<<<< HEAD
-      result[i] = (int)random(symbols.length);
-=======
+
       result[i] = (int) random(symbols.length);
->>>>>>> 8f00998c93b588acedb3ceb2994e7a4d25ba49ac
+
     }
 
     judge(player);
