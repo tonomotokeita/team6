@@ -17,7 +17,7 @@ class Slot {
     symbols[3] = loadImage("slot4.png");
   
     for (int i = 0; i < 3; i++) {
-      result[i] = int(random(symbols.length));
+      result[i] = (int) random(symbols.length);
     }
   }
 
@@ -34,14 +34,14 @@ class Slot {
     bonusMessage = "";
 
     for (int i = 0; i < result.length; i++) {
-      result[i] = int(random(symbols.length));
+      result[i] = (int) random(symbols.length);
     }
   }
 
   void update(){
     if (isSpinning && frameCount % 3 == 0){
       for (int i = 0; i < 3; i++){
-        result[i] = int(random(symbols.length));
+        result[i] = (int) random(symbols.length);
       }
     }
   }
@@ -53,7 +53,7 @@ class Slot {
     hasStopped = true;
 
     for (int i = 0; i < 3; i++) {
-      result[i] = int(random(symbols.length));
+      result[i] = (int) random(symbols.length);
     }
 
     judge(player);
