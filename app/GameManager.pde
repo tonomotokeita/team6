@@ -183,9 +183,7 @@ class GameManager {
 
       if (enemy.isDead()) {
         if (random(1) < 0.3) {
-          String[] types = {"HP", "Speed", "Power"};
-          String itemType = types[int(random(types.length))];
-          items.add(new Item(enemy.x, enemy.y, itemType));
+          items.add(new Item(enemy.x, enemy.y));
         }
 
         enemies.remove(i);

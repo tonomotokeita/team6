@@ -3,38 +3,25 @@ class Item {
   float x;
   float y;
 
-  String type;
-
   boolean active = true;
 
-  Item(float x, float y, String type) {
+  Item(float x, float y) {
 
     this.x = x;
     this.y = y;
-    this.type = type;
   }
 
   void display() {
 
     if (!active) return;
 
-    fill(255, 255, 0);
+    // HP回復アイテムだと分かりやすいように緑色で表示する
+    fill(0, 255, 0);
     ellipse(x, y, 20, 20);
   }
 
   void applyEffect(Player player) {
-
-    if (type.equals("HP")) {
-      player.hp = min(player.maxHp, player.hp + 20);
-    }
-
-    if (type.equals("Speed")) {
-      player.speed += 1;
-    }
-
-     if (type.equals("Power")) {
-      player.power += 5;
-    }
+    player.hp = min(player.maxHp, player.hp + 20);
 
     active = false;
   }
